@@ -66,7 +66,7 @@ void king_bobomb_act_2(void) {
         } else
             cur_obj_init_animation_with_sound(11);
         if (o->oKingBobombUnk108 == 0) {
-            o->oForwardVel = 3.0f;
+            o->oForwardVel = 30.0f;
             cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x100);
         } else {
             o->oForwardVel = 0.0f;
@@ -103,7 +103,7 @@ void king_bobomb_act_3(void) {
                 o->oKingBobombUnk108 = 35;
                 o->oInteractStatus &= ~(INT_STATUS_GRABBED_MARIO);
             } else {
-                o->oForwardVel = 3.0f;
+                o->oForwardVel = 30.0f;
                 if (o->oKingBobombUnk104 > 20 && cur_obj_rotate_yaw_toward(0, 0x400)) {
                     o->oSubAction++;
                     cur_obj_init_animation_and_anim_frame(9, 22);

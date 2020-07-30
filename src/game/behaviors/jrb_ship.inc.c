@@ -1,11 +1,11 @@
 // jrb_ship.c.inc
 
 struct ObjectHitbox sSkullSlidingBoxHitbox = {
-    /* interactType: */ INTERACT_DAMAGE,
+    /* interactType: */ INTERACT_BOUNCE_TOP,
     /* downOffset: */ 0,
     /* damageOrCoinValue: */ 1,
-    /* health: */ 1,
-    /* numLootCoins: */ 0,
+    /* health: */ 0,
+    /* numLootCoins: */ 50,
     /* radius: */ 130,
     /* height: */ 100,
     /* hurtboxRadius: */ 0,

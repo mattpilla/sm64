@@ -656,8 +656,8 @@ static void obj_set_knockback_action(s32 attackType) {
 
         default:
             o->oAction = OBJ_ACT_HORIZONTAL_KNOCKBACK;
-            o->oForwardVel = 50.0f;
-            o->oVelY = 30.0f;
+            o->oForwardVel = 200.0f;
+            o->oVelY = 90.0f;
             break;
     }
 

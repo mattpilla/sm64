@@ -2446,6 +2446,7 @@ void cur_obj_enable_rendering_if_mario_in_room(void) {
 }
 
 s32 cur_obj_set_hitbox_and_die_if_attacked(struct ObjectHitbox *hitbox, s32 deathSound, s32 noLootCoins) {
+    struct Object *explosion;
     s32 interacted = FALSE;
 
     obj_set_hitbox(o, hitbox);
@@ -2456,8 +2457,9 @@ s32 cur_obj_set_hitbox_and_die_if_attacked(struct ObjectHitbox *hitbox, s32 deat
 
     if (o->oInteractStatus & INT_STATUS_INTERACTED) {
         if (o->oInteractStatus & INT_STATUS_WAS_ATTACKED) {
-            spawn_mist_particles();
-            obj_spawn_loot_yellow_coins(o, o->oNumLootCoins, 20.0f);
+            explosion = spawn_object(o, MODEL_EXPLOSION, bhvExplosion);
+            explosion->oGraphYOffset += 100.0f;
+            obj_spawn_loot_blue_coins(o, o->oNumLootCoins, 20.0f, 150);
             obj_mark_for_deletion(o);
             create_sound_spawner(deathSound);
         } else {

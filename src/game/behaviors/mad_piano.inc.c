@@ -1,10 +1,10 @@
 
 static struct ObjectHitbox sMadPianoHitbox = {
-    /* interactType:      */ INTERACT_MR_BLIZZARD,
+    /* interactType:      */ INTERACT_BOUNCE_TOP,
     /* downOffset:        */ 0,
     /* damageOrCoinValue: */ 3,
-    /* health:            */ 99,
-    /* numLootCoins:      */ 0,
+    /* health:            */ 1,
+    /* numLootCoins:      */ 20,
     /* radius:            */ 200,
     /* height:            */ 150,
     /* hurtboxRadius:     */ 200,

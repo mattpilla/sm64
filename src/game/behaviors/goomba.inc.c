@@ -11,9 +11,9 @@
 static struct ObjectHitbox sGoombaHitbox = {
     /* interactType:      */ INTERACT_BOUNCE_TOP,
     /* downOffset:        */ 0,
-    /* damageOrCoinValue: */ 1,
+    /* damageOrCoinValue: */ 8,
     /* health:            */ 0,
-    /* numLootCoins:      */ 1,
+    /* numLootCoins:      */ 30,
     /* radius:            */ 72,
     /* height:            */ 50,
     /* hurtboxRadius:     */ 42,
@@ -34,9 +34,9 @@ struct GoombaProperties {
  * Properties for regular, huge, and tiny goombas.
  */
 static struct GoombaProperties sGoombaProperties[] = {
-    { 1.5f, SOUND_OBJ_ENEMY_DEATH_HIGH, 4000, 1 },
-    { 3.5f, SOUND_OBJ_ENEMY_DEATH_LOW, 4000, 2 },
-    { 0.5f, SOUND_OBJ_ENEMY_DEATH_HIGH, 1500, 0 },
+    { 1.5f, SOUND_PEACH_THANK_YOU_MARIO, 4000, 1 },
+    { 3.5f, SOUND_OBJ_BIG_PENGUIN_YELL, 4000, 2 },
+    { 0.5f, SOUND_OBJ_BIG_PENGUIN_YELL, 1500, 0 },
 };
 
 /**
@@ -127,7 +127,7 @@ void bhv_goomba_init(void) {
  * Enter the jump action and set initial y velocity.
  */
 static void goomba_begin_jump(void) {
-    cur_obj_play_sound_2(SOUND_OBJ_GOOMBA_ALERT);
+    cur_obj_play_sound_2(SOUND_OBJ2_BABY_PENGUIN_YELL);
     o->oAction = GOOMBA_ACT_JUMP;
     o->oForwardVel = 0.0f;
     o->oVelY = 50.0f / 3.0f * o->oGoombaScale;
@@ -265,6 +265,7 @@ void huge_goomba_weakly_attacked(void) {
  * Update function for goomba.
  */
 void bhv_goomba_update(void) {
+    struct Object *explosion;
     // PARTIAL_UPDATE
 
     f32 animSpeed;
@@ -312,6 +313,8 @@ void bhv_goomba_update(void) {
 
         cur_obj_move_standard(-78);
     } else {
+        explosion = spawn_object(o, MODEL_EXPLOSION, bhvExplosion);
+        explosion->oGraphYOffset += 100.0f;
         o->oAnimState = TRUE;
     }
 }

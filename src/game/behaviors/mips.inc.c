@@ -15,7 +15,7 @@ void bhv_mips_init(void) {
     if (save_file_get_total_star_count(gCurrSaveFileNum - 1, 0, 24) >= 15 && (starFlags & 0x08) == 0) {
         o->oBehParams2ndByte = 0;
 #ifndef VERSION_JP
-        o->oMipsForwardVelocity = 40.0f;
+        o->oMipsForwardVelocity = 90.0f;
 #endif
     }
     // If the player has >= 50 stars and hasn't collected second MIPS star...
@@ -23,7 +23,7 @@ void bhv_mips_init(void) {
              && (starFlags & 0x10) == 0) {
         o->oBehParams2ndByte = 1;
 #ifndef VERSION_JP
-        o->oMipsForwardVelocity = 45.0f;
+        o->oMipsForwardVelocity = 95.0f;
 #endif
     } else {
         // No MIPS stars are available, hide MIPS.
