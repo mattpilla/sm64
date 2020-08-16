@@ -185,7 +185,7 @@ static void chain_chomp_sub_act_turn(void) {
                         cur_obj_play_sound_2(SOUND_GENERAL_CHAIN_CHOMP2);
 
                         o->oSubAction = CHAIN_CHOMP_SUB_ACT_LUNGE;
-                        o->oChainChompMaxDistFromPivotPerChainPart = 900.0f / 5;
+                        o->oChainChompMaxDistFromPivotPerChainPart = 2900.0f / 5;
 
                         o->oForwardVel = 140.0f;
                         o->oVelY = 20.0f;
@@ -221,7 +221,7 @@ static void chain_chomp_sub_act_lunge(void) {
         }
 
         // TODO: What is this
-        if ((val04 = 900.0f - o->oChainChompDistToPivot) > 220.0f) {
+        if ((val04 = 2900.0f - o->oChainChompDistToPivot) > 220.0f) {
             val04 = 220.0f;
         }
 
@@ -440,7 +440,7 @@ static void chain_chomp_act_move(void) {
         // Begin a lunge if mario tries to attack
         if (obj_check_attacks(&sChainChompHitbox, o->oAction)) {
             o->oSubAction = CHAIN_CHOMP_SUB_ACT_LUNGE;
-            o->oChainChompMaxDistFromPivotPerChainPart = 900.0f / 5;
+            o->oChainChompMaxDistFromPivotPerChainPart = 2900.0f / 5;
             o->oForwardVel = 0.0f;
             o->oVelY = 300.0f;
             o->oGravity = -4.0f;

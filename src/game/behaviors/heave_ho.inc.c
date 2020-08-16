@@ -16,8 +16,8 @@ void bhv_heave_ho_throw_mario_loop(void) {
         case 2:
             cur_obj_play_sound_2(SOUND_OBJ_HEAVEHO_TOSSED);
             gMarioObject->oInteractStatus |= INT_STATUS_MARIO_UNK2;
-            gMarioStates->forwardVel = -45.0f;
-            gMarioStates->vel[1] = 95.0f;
+            gMarioStates->forwardVel = -205.0f;
+            gMarioStates->vel[1] = 395.0f;
             o->parentObj->oHeaveHoUnk88 = 0;
             break;
     }
@@ -54,7 +54,7 @@ void heave_ho_act_2(void) {
     } else
         o->oHeaveHoUnkF4 = 1.0f;
     cur_obj_init_animation_with_accel_and_sound(0, o->oHeaveHoUnkF4);
-    o->oForwardVel = o->oHeaveHoUnkF4 * 10.0f;
+    o->oForwardVel = o->oHeaveHoUnkF4 * 50.0f;
     angleVel = o->oHeaveHoUnkF4 * 0x400;
     o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oAngleToMario, angleVel);
 }

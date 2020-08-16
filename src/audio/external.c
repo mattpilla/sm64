@@ -2142,7 +2142,7 @@ void play_dialog_sound(u8 dialogID) {
 }
 
 void play_music(u8 player, u16 seqArgs, u16 fadeTimer) {
-    u8 seqId = seqArgs & 0xff;
+/*    u8 seqId = seqArgs & 0xff;
     u8 priority = seqArgs >> 8;
     u8 i;
     u8 foundIndex = 0;
@@ -2197,7 +2197,7 @@ void play_music(u8 player, u16 seqArgs, u16 fadeTimer) {
 
     // Insert item into queue.
     sBackgroundMusicQueue[foundIndex].priority = priority;
-    sBackgroundMusicQueue[foundIndex].seqId = seqId;
+    sBackgroundMusicQueue[foundIndex].seqId = seqId;*/
 }
 
 void stop_background_music(u16 seqId) {
@@ -2286,7 +2286,7 @@ void func_80320ED8(void) {
 }
 
 void play_secondary_music(u8 seqId, u8 bgMusicVolume, u8 volume, u16 fadeTimer) {
-    UNUSED u32 dummy;
+/*    UNUSED u32 dummy;
 
     sUnused80332118 = 0;
     if (sPlayer0CurSeqId == 0xff || sPlayer0CurSeqId == SEQ_MENU_TITLE_SCREEN) {
@@ -2307,7 +2307,7 @@ void play_secondary_music(u8 seqId, u8 bgMusicVolume, u8 volume, u16 fadeTimer) 
         func_803200E4(fadeTimer);
         func_8031D838(SEQ_PLAYER_ENV, fadeTimer, volume);
         D_80332124 = volume;
-    }
+    }*/
 }
 
 void func_80321080(u16 fadeTimer) {

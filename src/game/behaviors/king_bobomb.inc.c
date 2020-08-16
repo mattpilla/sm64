@@ -50,10 +50,10 @@ int mario_is_far_below_object(f32 arg0) {
 
 void king_bobomb_act_2(void) {
     cur_obj_become_tangible();
-    if (o->oPosY - o->oHomeY < -100.0f) { // Thrown off hill
-        o->oAction = 5;
-        cur_obj_become_intangible();
-    }
+    // if (o->oPosY - o->oHomeY < -100.0f) { // Thrown off hill
+    //     o->oAction = 5;
+    //     cur_obj_become_intangible();
+    // }
     if (o->oKingBobombUnk100 == 0) {
         if (cur_obj_check_anim_frame(15))
             cur_obj_shake_screen(SHAKE_POS_SMALL);
@@ -66,8 +66,8 @@ void king_bobomb_act_2(void) {
         } else
             cur_obj_init_animation_with_sound(11);
         if (o->oKingBobombUnk108 == 0) {
-            o->oForwardVel = 3.0f;
-            cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x100);
+            o->oForwardVel = 30.0f;
+            cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x1000);
         } else {
             o->oForwardVel = 0.0f;
             o->oKingBobombUnk108--;
@@ -76,12 +76,15 @@ void king_bobomb_act_2(void) {
     if (cur_obj_check_grabbed_mario())
         o->oAction = 3;
     if (mario_is_far_below_object(1200.0f)) {
-        o->oAction = 0;
-        stop_background_music(SEQUENCE_ARGS(4, SEQ_EVENT_BOSS));
+        o->oAction = 5;
+        // o->oAction = 0;
+        // stop_background_music(SEQUENCE_ARGS(4, SEQ_EVENT_BOSS));
     }
 }
 
 void king_bobomb_act_3(void) {
+    s16 ang = 0;
+
     if (o->oSubAction == 0) {
         o->oForwardVel = 0;
         o->oKingBobombUnk104 = 0;
@@ -89,6 +92,7 @@ void king_bobomb_act_3(void) {
         if (o->oTimer == 0)
             cur_obj_play_sound_2(SOUND_OBJ_UNKNOWN3);
         if (cur_obj_init_animation_and_check_if_near_end(0)) {
+            ang = random_u16();
             o->oSubAction++;
             cur_obj_init_animation_and_anim_frame(1, 0);
         }
@@ -103,8 +107,8 @@ void king_bobomb_act_3(void) {
                 o->oKingBobombUnk108 = 35;
                 o->oInteractStatus &= ~(INT_STATUS_GRABBED_MARIO);
             } else {
-                o->oForwardVel = 3.0f;
-                if (o->oKingBobombUnk104 > 20 && cur_obj_rotate_yaw_toward(0, 0x400)) {
+                o->oForwardVel = 30.0f;
+                if (o->oKingBobombUnk104 > 20 && cur_obj_rotate_yaw_toward(ang, 0x400)) {
                     o->oSubAction++;
                     cur_obj_init_animation_and_anim_frame(9, 22);
                 }
@@ -215,6 +219,7 @@ void king_bobomb_act_4(void) { // bobomb been thrown
         } else {
             if (cur_obj_init_animation_and_check_if_near_end(10))
                 o->oAction = 5; // Go back to top of hill
+                o->oSubAction = 0;
             o->oSubAction++;
         }
     }
@@ -227,18 +232,20 @@ void king_bobomb_act_5(void) { // bobomb returns home
                 cur_obj_play_sound_2(SOUND_OBJ_KING_BOBOMB_JUMP);
             o->oKingBobombUnkF8 = 1;
             cur_obj_init_animation_and_extend_if_at_end(8);
-            o->oMoveAngleYaw =  cur_obj_angle_to_home();
-            if (o->oPosY < o->oHomeY)
+            o->oMoveAngleYaw =  o->oAngleToMario;
+            if (o->oPosY > gMarioObject->oPosY + 10.0f)
+                o->oVelY = -100.0f;
+            else if (o->oPosY < gMarioObject->oPosY - 10.0f)
                 o->oVelY = 100.0f;
             else {
-                arc_to_goal_pos(&o->oHomeX, &o->oPosX, 100.0f, -4.0f);
+                arc_to_goal_pos(&gMarioObject->oPosX, &o->oPosX, 100.0f, -4.0f);
                 o->oSubAction++;
             }
             break;
         case 1:
             cur_obj_init_animation_and_extend_if_at_end(8);
-            if (o->oVelY < 0 && o->oPosY < o->oHomeY) {
-                o->oPosY = o->oHomeY;
+            if (o->oVelY < 0 && o->oPosY > gMarioObject->oPosY) {
+                o->oPosY = gMarioObject->oPosY;
                 o->oVelY = 0;
                 o->oForwardVel = 0;
                 o->oGravity = -4.0f;
@@ -254,12 +261,13 @@ void king_bobomb_act_5(void) { // bobomb returns home
                 o->oSubAction++;
             break;
         case 3:
-            if (mario_is_far_below_object(1200.0f)) {
-                o->oAction = 0;
-                stop_background_music(SEQUENCE_ARGS(4, SEQ_EVENT_BOSS));
-            }
-            if (cur_obj_can_mario_activate_textbox_2(500.0f, 100.0f))
-                o->oSubAction++;
+            o->oAction = 2;
+            // if (mario_is_far_below_object(1200.0f)) {
+            //     o->oAction = 0;
+            //     stop_background_music(SEQUENCE_ARGS(4, SEQ_EVENT_BOSS));
+            // }
+            // if (cur_obj_can_mario_activate_textbox_2(500.0f, 100.0f))
+            //     o->oSubAction++;
             break;
         case 4:
             if (cur_obj_update_dialog_with_cutscene(2, 1, CUTSCENE_DIALOG, DIALOG_128))
@@ -295,10 +303,10 @@ void king_bobomb_move(void) {
         cur_obj_move_using_fvel_and_gravity();
     cur_obj_call_action_function(sKingBobombActions);
     exec_anim_sound_state(sKingBobombSoundStates);
-    if (o->oDistanceToMario < 5000.0f)
+    // if (o->oDistanceToMario < 5000.0f)
         cur_obj_enable_rendering();
-    else
-        cur_obj_disable_rendering();
+    // else
+    //     cur_obj_disable_rendering();
 }
 
 void bhv_king_bobomb_loop(void) {

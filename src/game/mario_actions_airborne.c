@@ -1234,7 +1234,7 @@ s32 act_thrown_forward(struct MarioState *m) {
         m->marioObj->header.gfx.angle[0] = pitch + 0x1800;
     }
 
-    m->forwardVel *= 0.98f;
+    m->forwardVel = 148.0f;
     return FALSE;
 }
 

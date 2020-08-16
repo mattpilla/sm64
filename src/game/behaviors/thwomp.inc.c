@@ -2,13 +2,13 @@
 
 void grindel_thwomp_act_4(void) {
     if (o->oTimer == 0)
-        o->oThwompRandomTimer = random_float() * 10.0f + 20.0f;
+        o->oThwompRandomTimer = 0.0f;
     if (o->oTimer > o->oThwompRandomTimer)
         o->oAction = 0;
 }
 
 void grindel_thwomp_act_2(void) {
-    o->oVelY += -4.0f;
+    o->oVelY += -44.0f;
     o->oPosY += o->oVelY;
     if (o->oPosY < o->oHomeY) {
         o->oPosY = o->oHomeY;
@@ -19,7 +19,7 @@ void grindel_thwomp_act_2(void) {
 
 void grindel_thwomp_act_3(void) {
     if (o->oTimer == 0)
-        if (o->oDistanceToMario < 1500.0f) {
+        if (o->oDistanceToMario < 3500.0f) {
             cur_obj_shake_screen(SHAKE_POS_SMALL);
             cur_obj_play_sound_2(SOUND_OBJ_THWOMP);
         }
@@ -29,17 +29,17 @@ void grindel_thwomp_act_3(void) {
 
 void grindel_thwomp_act_1(void) {
     if (o->oTimer == 0)
-        o->oThwompRandomTimer = random_float() * 30.0f + 10.0f;
+        o->oThwompRandomTimer = 0.0f;
     if (o->oTimer > o->oThwompRandomTimer)
         o->oAction = 2;
 }
 
 void grindel_thwomp_act_0(void) {
-    if (o->oBehParams2ndByte + 40 < o->oTimer) {
+    if (o->oBehParams2ndByte < o->oTimer) {
         o->oAction = 1;
-        o->oPosY += 5.0f;
+        o->oPosY += 255.0f;
     } else
-        o->oPosY += 10.0f;
+        o->oPosY += 250.0f;
 }
 
 void (*sGrindelThwompActions[])(void) = { grindel_thwomp_act_0, grindel_thwomp_act_1,
